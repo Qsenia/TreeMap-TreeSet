@@ -14,7 +14,30 @@ public class Main {
         people.add(new Person("Габриэль", "Аломар-и-Вильялонга", 11));
 
         System.out.println(people);
-        Collections.sort(people, new PersonNameNobilityComparator(3));
+        Collections.sort(people,((o1, o2) ->  {
+            int maxWords=3;
+            String[] newSurname1;
+            String[] newSurname2;
+
+            newSurname1 = o1.getSurname().split("[ -]");
+            newSurname2 = o2.getSurname().split("[ -]");
+
+            if (newSurname2.length == newSurname1.length) {
+                return Integer.compare(o2.getAge(), o1.getAge());
+
+            }
+            if ((newSurname2.length >= maxWords) && (newSurname1.length >= maxWords)) {
+
+                return Integer.compare(o2.getAge(), o1.getAge());
+            }
+            if ((newSurname1.length < maxWords) && (newSurname2.length < maxWords)) {
+                return Integer.compare(newSurname2.length, newSurname1.length);
+            }
+            return Integer.compare(newSurname2.length, newSurname1.length);
+
+
+
+    }));
         System.out.println(people);
-    }
+}
 }
